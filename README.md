@@ -29,7 +29,11 @@ That being said there are currently some losses involved with this rewrite.
 
 * `render_text` is not yet rewritten
 * `stroke_weight` has a visible maximum of 10px, like OpenGL, one obvious solution would be to construct a primitive for the border if it's over 10 pixels... but I haven't done that yet.
-* `stoke` corners do not have endcaps
+* `stroke` corners do not have endcaps
+
+## Goal
+
+My main focus is graphics, so I will start by porting the scene module, then sound, and maybe some ui.
 
 ---
 
