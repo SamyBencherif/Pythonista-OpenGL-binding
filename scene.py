@@ -10,6 +10,7 @@ from collections.abc import Iterable
 from _scene import stroke_weight, no_stroke, no_fill, no_tint, load_image, image
 from _scene import background, rect, ellipse, fill, stroke, tint, get_image_path
 from _scene import load_image_file, line, unload_image, image_quad, text
+from _scene import triangle_strip
 #size = _scene.size
 #push_matrix = _scene.push_matrix
 #pop_matrix = _scene.pop_matrix

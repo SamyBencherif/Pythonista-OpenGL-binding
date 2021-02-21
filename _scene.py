@@ -34,6 +34,15 @@ _data.LOADED_IMGS   = {}
 BEGIN DRAWING FUNCTIONS
 """
 
+def hex2rgb(h):
+    # color is in format #xxxxxx
+    h = h[1:] # discard '#'
+    r = h[:2] ; h = h[2:] # move first two chars to r
+    g = h[:2] ; h = h[2:] # move first two chars to g
+    b = h[:2]             # move first two chars to b
+    r = int(r,16) ; g = int(g,16) ; b = int(b,16)
+    return (r/255,g/255,b/255)
+
 def compileShaderCode(shader, code):
 
     # hacky way to avoid use of OpenGL ES feature
@@ -148,6 +157,9 @@ def image(name, x, y, w=0, h=0):
     glDisable(GL_TEXTURE_2D)
     glBindTexture(GL_TEXTURE_2D, 0)
 
+def triangle_strip(*k):
+    pass # unimplemented !
+
 def image_quad(name, *coords):
     assert len(coords) in (8,16)
     assert len(coords) == 8 # no support for "from" coordinates yet
@@ -160,6 +172,7 @@ def image_quad(name, *coords):
     glColor4f(*_data.TINT_COLOUR)
 
     if not name in _data.LOADED_IMGS.keys():
+        print("loading image", name)
         load_image(name)
     _img = _data.LOADED_IMGS[name]
 
@@ -193,7 +206,10 @@ def image_quad(name, *coords):
     glDisable(GL_TEXTURE_2D)
     glBindTexture(GL_TEXTURE_2D, 0)
 
-def background(r, g, b, a=1.0):
+def background(r, g=None, b=None, a=1.0):
+    if g == None:
+        r,g,b = hex2rgb(r)
+
     glClearColor(r,g,b,a)
     glClear(GL_COLOR_BUFFER_BIT)
 
@@ -266,12 +282,24 @@ def ellipse(x, y, w, h):
         glEnd()
     
 def fill(r, g, b, a=1.0):
+    if g == None:
+        r,g,b = hex2rgb(r)
+
     _data.FILL_COLOUR = (r, g, b, a)
 
 def stroke(r, g, b, a=1.0):
+    if g == None:
+        r,g,b = hex2rgb(r)
+
     _data.STROKE_COLOUR = (r, g, b, a)
 
-def tint(r, g, b, a=1.0):
+def tint(r, g=None, b=None, a=1.0):
+    if g == None:
+        if type(r) == tuple:
+            r,g,b,a = r
+        else:
+            r,g,b = hex2rgb(r)
+
     _data.TINT_COLOUR = (r, g, b, a)
 
 def unload_image(name):

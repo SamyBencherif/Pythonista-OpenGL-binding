@@ -319,7 +319,19 @@ class Size(object):
     def __init__(self, w=0.0, h=0.0):
         self.w = w
         self.h = h
-    
+        
+        self.x = w
+        self.y = h   
+ 
+    def __add__(self, other):
+        return Size(self.w+other.x, self.h+other.y)
+
+    def __mul__(self, other):
+        return Size(self.w*other, self.h*other)
+
+    def __truediv__(self, other):
+        return Size(self.w/other, self.h/other)
+
     def __iter__(self):
         return (val for val in self.as_tuple())
     
