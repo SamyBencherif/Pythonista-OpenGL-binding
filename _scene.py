@@ -1,5 +1,5 @@
 # Some imports
-import _scene_types
+from scene import _scene_types
 import pyglet
 from pyglet.gl import *
 import string
@@ -108,7 +108,7 @@ def no_tint():
     _data.TINT_COLOUR = None
 
 def get_image_path(image_name):
-    path = os.path.join("Media", "Images", image_name.replace(":", os.sep) + "@2x.png")
+    path = os.path.join("scene", "Media", "Images", image_name.replace(":", os.sep) + "@2x.png")
     if os.path.isfile(path):
         return path
     return None
@@ -174,6 +174,7 @@ def image_quad(name, *coords):
     if not name in _data.LOADED_IMGS.keys():
         print("loading image", name)
         load_image(name)
+
     _img = _data.LOADED_IMGS[name]
 
     texture = _img.get_texture()
