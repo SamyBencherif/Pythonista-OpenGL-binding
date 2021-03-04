@@ -191,7 +191,7 @@ class Vector2(object):
     def __mul__(self, scalar):
         return Vector2(self.x*scalar, self.y*scalar)
 
-    def __div__(self, scalar):
+    def __truediv__(self, scalar):
         return Vector2(self.x/scalar, self.y/scalar)
 
     def __len__(self):
@@ -201,7 +201,7 @@ class Vector2(object):
         return not (self == other)
     
     def __repr__(self):
-        return "Vector(x=%d, y=%d)" % self.as_tuple()
+        return "(%d, %d)" % self.as_tuple()
     
     def __setitem__(self, item, value):
         if item == 'x': self.x = value
@@ -258,6 +258,9 @@ class Rect(object):
     def __getstate__(self):
         return self.as_tuple()
     
+    def contains_point(self, point):
+        return self.x < point.x < self.x + self.w and self.y < point.y < self.y + self.h  
+
     def __init__(self, x=0.0, y=0.0, w=0.0, h=0.0):
         self.x = x
         self.y = y
@@ -342,7 +345,7 @@ class Size(object):
         return not (self == other)
     
     def __repr__(self):
-        return "Size(%.1f, %.1f)" % self.as_tuple()
+        return "(%.1f, %.1f)" % self.as_tuple()
     
     def __setitem__(self, item, value):
         settattr(self, ("w", "h")[item], value)

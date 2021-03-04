@@ -128,7 +128,7 @@ def load_image_file(path, name=None):
 def load_image(name):
     path = get_image_path(name)
     if not path:
-        raise IOError("built-in image not found")
+        raise IOError("built-in image: %s is not found" % name)
     load_image_file(path, name)
 
 def image(name, x, y, w=0, h=0):

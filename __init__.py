@@ -596,7 +596,7 @@ class Scene (object):
     def _touch_ended(self, x, y, touch_id):
         touch = Touch(x, y, x, y, touch_id)
         old_touch = self.touches.get(touch_id, None)
-        del self.touches[touch_id]
+        if touch_id in self.touches.keys(): del self.touches[touch_id]
         if old_touch:
             touch.layer = old_touch.layer
             if touch.layer:
