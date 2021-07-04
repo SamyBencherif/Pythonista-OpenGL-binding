@@ -11,14 +11,15 @@ I created this fork because I wanted to work on my 3d library [LIB3D](https://gi
 
 ## Installation
 
-Simply use the included virtual environment called pythonista-venv.
+Simply generate and use a virtual environment using the provided script:
 
 Run this command in your bash terminal:
 ```bash
-source pythonista-venv/bin/activate
+source make_env.sh
 ```
 
 Now the "python" command for that terminal will have access to supported Pythonista modules.
+Try "import scene" to test it out.
 
 ## Differences
 
