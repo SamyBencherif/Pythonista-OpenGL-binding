@@ -9,6 +9,17 @@ This is a fork of the original program by [JadedTuna](https://github.com/JadedTu
 
 I created this fork because I wanted to work on my 3d library [LIB3D](https://github.com/SamyBencherif/LIB3D) on both mobile and desktop. Unfornately I found that the `image_quad` function I wanted to use is not supported in [pcista]((https://github.com/JadedTuna/pcista))--in fact it is impossible to (efficiently) implement in pygame, so I switched to pyglet which exposes OpenGL functionality.
 
+## Installation
+
+Simply use the included virtual environment called pythonista-venv.
+
+Run this command in your bash terminal:
+```bash
+source pythonista-venv/bin/activate
+```
+
+Now the "python" command for that terminal will have access to supported Pythonista modules.
+
 ## Differences
 
 This version seeks to include some features from the newest version of Pythonista (v3.3)
@@ -19,9 +30,7 @@ This version seeks to include some features from the newest version of Pythonist
     * `set_uniform` implemented to same extent as Pythonista
     * `get_uniform` not yet implemented.
     * `use_shader` works just like in app
-* Some measures have been taking to prevent valid Pythonista scripts from crashing over an unused import (usually this means ensuring some module is there, even if it is empty[1]). 
-
-1: Side note, This is why I am unsure what the install process for this package would look like. The `motion` module on pc will probably stay empty for a while, but I wouldn't want to pollute the user's global package index. It might make more sense to create a Pythonista virtual environment.
+* Some measures have been taking to prevent valid Pythonista scripts from crashing over an unused import (usually this means ensuring some module is there, even if it is empty).
 
 Since this layer is written using OpenGL calls it is conceivable that this program could be ported to additional platforms without excess trouble: WebGL, Android, iOS App Store.
 
