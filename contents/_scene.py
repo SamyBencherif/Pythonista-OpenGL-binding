@@ -157,8 +157,43 @@ def image(name, x, y, w=0, h=0):
     glDisable(GL_TEXTURE_2D)
     glBindTexture(GL_TEXTURE_2D, 0)
 
-def triangle_strip(*k):
-    pass # unimplemented !
+# this limited implementation of triangle_strip requires all parameters 
+def triangle_strip(screen_coords, uvs, name):
+    glColor4f(*_data.TINT_COLOUR)
+
+    if not name in _data.LOADED_IMGS.keys():
+        #print("loading image", name)
+        load_image(name)
+
+    _img = _data.LOADED_IMGS[name]
+
+    texture = _img.get_texture()
+
+    glEnable(texture.target)
+    tex_coords = texture.tex_coords
+    tex_coords[0] = uvs[0][0];
+    tex_coords[1] = uvs[0][1];
+    tex_coords[3] = uvs[1][0];
+    tex_coords[4] = uvs[1][1];
+    tex_coords[6] = uvs[2][0];
+    tex_coords[7] = uvs[2][1];
+    # everything except for Z values are overwritten
+
+    glBindTexture(texture.target, texture.id)
+    glBegin(GL_TRIANGLES)
+
+    glTexCoord3f(tex_coords[0], tex_coords[1], tex_coords[2])
+    glVertex2f(screen_coords[0], screen_coords[1])
+
+    glTexCoord3f(tex_coords[3], tex_coords[4], tex_coords[5])
+    glVertex2f(screen_coords[2], screen_coords[3])
+
+    glTexCoord3f(tex_coords[6], tex_coords[7], tex_coords[8])
+    glVertex2f(screen_coords[6], screen_coords[7])
+
+    glEnd()
+    glDisable(GL_TEXTURE_2D)
+    glBindTexture(GL_TEXTURE_2D, 0)
 
 def image_quad(name, *coords):
     assert len(coords) in (8,16)
@@ -172,7 +207,7 @@ def image_quad(name, *coords):
     glColor4f(*_data.TINT_COLOUR)
 
     if not name in _data.LOADED_IMGS.keys():
-        print("loading image", name)
+        #print("loading image", name)
         load_image(name)
 
     _img = _data.LOADED_IMGS[name]

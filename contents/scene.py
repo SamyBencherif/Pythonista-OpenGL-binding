@@ -54,6 +54,8 @@ class Shader:
 
         # 2/3/4 component vector
         if isinstance(value,Iterable):
+            if len(value) == 4:
+                _scene.glUniform4f(uniform, *value)
             if len(value) == 3:
                 _scene.glUniform3f(uniform, *value)
             if len(value) == 2:
